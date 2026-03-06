@@ -1,0 +1,1021 @@
+{
+  "airports": [
+    {
+      "cityAndCode": "Albany (ALB)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "ALB"
+    },
+    {
+      "cityAndCode": "Atlanta (ATL)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "GA",
+      "stationCode": "ATL"
+    },
+    {
+      "cityAndCode": "Austin (AUS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "AUS"
+    },
+    {
+      "cityAndCode": "Baltimore (BWI)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MD",
+      "stationCode": "BWI"
+    },
+    {
+      "cityAndCode": "Bentonville/Fayetteville (XNA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "AR",
+      "stationCode": "XNA"
+    },
+    {
+      "cityAndCode": "Bloomington/Normal (BMI)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "IL",
+      "stationCode": "BMI"
+    },
+    {
+      "cityAndCode": "Boise (BOI)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "ID",
+      "stationCode": "BOI"
+    },
+    {
+      "cityAndCode": "Boston (BOS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MA",
+      "stationCode": "BOS"
+    },
+    {
+      "cityAndCode": "Buffalo (BUF)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "BUF"
+    },
+    {
+      "cityAndCode": "Burlington (BTV)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "VT",
+      "stationCode": "BTV"
+    },
+    {
+      "cityAndCode": "Cedar Rapids (CID)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "IA",
+      "stationCode": "CID"
+    },
+    {
+      "cityAndCode": "Charleston (CHS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "SC",
+      "stationCode": "CHS"
+    },
+    {
+      "cityAndCode": "Charlotte (CLT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NC",
+      "stationCode": "CLT"
+    },
+    {
+      "cityAndCode": "Chicago (Midway) (MDW)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "IL",
+      "stationCode": "MDW"
+    },
+    {
+      "cityAndCode": "Chicago (O'Hare) (ORD)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "IL",
+      "stationCode": "ORD"
+    },
+    {
+      "cityAndCode": "Cincinnati (CVG)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "OH",
+      "stationCode": "CVG"
+    },
+    {
+      "cityAndCode": "Cleveland (CLE)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "OH",
+      "stationCode": "CLE"
+    },
+    {
+      "cityAndCode": "Columbus (CMH)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "OH",
+      "stationCode": "CMH"
+    },
+    {
+      "cityAndCode": "Corpus Christi (CRP)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "CRP"
+    },
+    {
+      "cityAndCode": "Dallas/Ft. Worth (DFW)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "DFW"
+    },
+    {
+      "cityAndCode": "Denver (DEN)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CO",
+      "stationCode": "DEN"
+    },
+    {
+      "cityAndCode": "Des Moines (DSM)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "IA",
+      "stationCode": "DSM"
+    },
+    {
+      "cityAndCode": "Detroit (DTW)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MI",
+      "stationCode": "DTW"
+    },
+    {
+      "cityAndCode": "El Paso (ELP)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "ELP"
+    },
+    {
+      "cityAndCode": "Fargo (FAR)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "ND",
+      "stationCode": "FAR"
+    },
+    {
+      "cityAndCode": "Fort Myers (RSW)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "RSW"
+    },
+    {
+      "cityAndCode": "Fort. Lauderdale (FLL)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "FLL"
+    },
+    {
+      "cityAndCode": "Fresno (FAT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "FAT"
+    },
+    {
+      "cityAndCode": "Grand Rapids (GRR)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MI",
+      "stationCode": "GRR"
+    },
+    {
+      "cityAndCode": "Green Bay (GRB)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "WI",
+      "stationCode": "GRB"
+    },
+    {
+      "cityAndCode": "Harrisburg (MDT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "PA",
+      "stationCode": "MDT"
+    },
+    {
+      "cityAndCode": "Hartford (BDL)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CT",
+      "stationCode": "BDL"
+    },
+    {
+      "cityAndCode": "Houston (Hobby) (HOU)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "HOU"
+    },
+    {
+      "cityAndCode": "Houston (Intercontinental) (IAH)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "IAH"
+    },
+    {
+      "cityAndCode": "Hudson Valley (SWF)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "SWF"
+    },
+    {
+      "cityAndCode": "Indianapolis (IND)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "IN",
+      "stationCode": "IND"
+    },
+    {
+      "cityAndCode": "Jacksonville (JAX)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "JAX"
+    },
+    {
+      "cityAndCode": "Kansas City (MCI)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MO",
+      "stationCode": "MCI"
+    },
+    {
+      "cityAndCode": "Knoxville (TYS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TN",
+      "stationCode": "TYS"
+    },
+    {
+      "cityAndCode": "Las Vegas (LAS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NV",
+      "stationCode": "LAS"
+    },
+    {
+      "cityAndCode": "Little Rock (LIT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "AR",
+      "stationCode": "LIT"
+    },
+    {
+      "cityAndCode": "Los Angeles (LAX)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "LAX"
+    },
+    {
+      "cityAndCode": "Los Angeles/Hollywood (Burbank) (BUR)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "BUR"
+    },
+    {
+      "cityAndCode": "Madison (MSN)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "WI",
+      "stationCode": "MSN"
+    },
+    {
+      "cityAndCode": "McAllen (MFE)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "MFE"
+    },
+    {
+      "cityAndCode": "Memphis (MEM)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TN",
+      "stationCode": "MEM"
+    },
+    {
+      "cityAndCode": "Miami (MIA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "MIA"
+    },
+    {
+      "cityAndCode": "Milwaukee (MKE)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "WI",
+      "stationCode": "MKE"
+    },
+    {
+      "cityAndCode": "Minneapolis/St. Paul (MSP)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MN",
+      "stationCode": "MSP"
+    },
+    {
+      "cityAndCode": "Missoula (MSO)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MT",
+      "stationCode": "MSO"
+    },
+    {
+      "cityAndCode": "Myrtle Beach (MYR)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "SC",
+      "stationCode": "MYR"
+    },
+    {
+      "cityAndCode": "Nashville (BNA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TN",
+      "stationCode": "BNA"
+    },
+    {
+      "cityAndCode": "New Orleans (MSY)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "LA",
+      "stationCode": "MSY"
+    },
+    {
+      "cityAndCode": "New York (JFK) (JFK)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "JFK"
+    },
+    {
+      "cityAndCode": "New York (La Guardia) (LGA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "LGA"
+    },
+    {
+      "cityAndCode": "New York/Islip (ISP)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "ISP"
+    },
+    {
+      "cityAndCode": "New York/Newark (EWR)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NJ",
+      "stationCode": "EWR"
+    },
+    {
+      "cityAndCode": "Norfolk (ORF)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "VA",
+      "stationCode": "ORF"
+    },
+    {
+      "cityAndCode": "Oakland (OAK)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "OAK"
+    },
+    {
+      "cityAndCode": "Oklahoma City (OKC)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "OK",
+      "stationCode": "OKC"
+    },
+    {
+      "cityAndCode": "Omaha (OMA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NE",
+      "stationCode": "OMA"
+    },
+    {
+      "cityAndCode": "Ontario/Los Angeles (ONT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "ONT"
+    },
+    {
+      "cityAndCode": "Orange County/ Los Angeles (SNA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "SNA"
+    },
+    {
+      "cityAndCode": "Orlando (MCO)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "MCO"
+    },
+    {
+      "cityAndCode": "Palm Beach (PBI)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "PBI"
+    },
+    {
+      "cityAndCode": "Palm Springs (PSP)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "PSP"
+    },
+    {
+      "cityAndCode": "Pensacola (PNS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "PNS"
+    },
+    {
+      "cityAndCode": "Philadelphia (PHL)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "PA",
+      "stationCode": "PHL"
+    },
+    {
+      "cityAndCode": "Phoenix/Sky Harbor (PHX)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "AZ",
+      "stationCode": "PHX"
+    },
+    {
+      "cityAndCode": "Pittsburgh (PIT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "PA",
+      "stationCode": "PIT"
+    },
+    {
+      "cityAndCode": "Portland (PDX)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "OR",
+      "stationCode": "PDX"
+    },
+    {
+      "cityAndCode": "Portland (PWM)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "ME",
+      "stationCode": "PWM"
+    },
+    {
+      "cityAndCode": "PROVIDENCE (PVD)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "RI",
+      "stationCode": "PVD"
+    },
+    {
+      "cityAndCode": "Raleigh/Durham (RDU)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NC",
+      "stationCode": "RDU"
+    },
+    {
+      "cityAndCode": "Reno/Tahoe (RNO)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NV",
+      "stationCode": "RNO"
+    },
+    {
+      "cityAndCode": "Richmond (RIC)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "VA",
+      "stationCode": "RIC"
+    },
+    {
+      "cityAndCode": "Sacramento (SMF)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "SMF"
+    },
+    {
+      "cityAndCode": "Salt Lake City (SLC)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "UT",
+      "stationCode": "SLC"
+    },
+    {
+      "cityAndCode": "San Antonio (SAT)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "TX",
+      "stationCode": "SAT"
+    },
+    {
+      "cityAndCode": "San Diego (SAN)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "SAN"
+    },
+    {
+      "cityAndCode": "San Francisco (SFO)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "SFO"
+    },
+    {
+      "cityAndCode": "San Jose (SJC)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CA",
+      "stationCode": "SJC"
+    },
+    {
+      "cityAndCode": "Sarasota/Bradenton (SRQ)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "SRQ"
+    },
+    {
+      "cityAndCode": "Savannah (SAV)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "GA",
+      "stationCode": "SAV"
+    },
+    {
+      "cityAndCode": "Seattle/Everett (PAE)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "WA",
+      "stationCode": "PAE"
+    },
+    {
+      "cityAndCode": "Seattle/Tacoma (SEA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "WA",
+      "stationCode": "SEA"
+    },
+    {
+      "cityAndCode": "Sioux Falls (FSD)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "SD",
+      "stationCode": "FSD"
+    },
+    {
+      "cityAndCode": "Spokane (GEG)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "WA",
+      "stationCode": "GEG"
+    },
+    {
+      "cityAndCode": "St. Louis (STL)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "MO",
+      "stationCode": "STL"
+    },
+    {
+      "cityAndCode": "Syracuse (SYR)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NY",
+      "stationCode": "SYR"
+    },
+    {
+      "cityAndCode": "Tampa (TPA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "FL",
+      "stationCode": "TPA"
+    },
+    {
+      "cityAndCode": "Trenton/Princeton (TTN)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "NJ",
+      "stationCode": "TTN"
+    },
+    {
+      "cityAndCode": "Tucson (TUS)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "AZ",
+      "stationCode": "TUS"
+    },
+    {
+      "cityAndCode": "Tulsa (TUL)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "OK",
+      "stationCode": "TUL"
+    },
+    {
+      "cityAndCode": "Vail/Eagle (EGE)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "CO",
+      "stationCode": "EGE"
+    },
+    {
+      "cityAndCode": "Washington (Dulles) (IAD)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "VA",
+      "stationCode": "IAD"
+    },
+    {
+      "cityAndCode": "Washington (Reagan) (DCA)",
+      "country": "United States of America",
+      "countryCode": "US",
+      "state": "DC",
+      "stationCode": "DCA"
+    },
+    {
+      "cityAndCode": "Antigua (ANU)",
+      "country": "Antigua and Barbuda",
+      "countryCode": "AG",
+      "state": "",
+      "stationCode": "ANU"
+    },
+    {
+      "cityAndCode": "Aruba (AUA)",
+      "country": "Aruba",
+      "countryCode": "AW",
+      "state": "",
+      "stationCode": "AUA"
+    },
+    {
+      "cityAndCode": "Bridgetown (BGI)",
+      "country": "Barbados",
+      "countryCode": "BB",
+      "state": "",
+      "stationCode": "BGI"
+    },
+    {
+      "cityAndCode": "Nassau (NAS)",
+      "country": "Bahamas, Commonwealth of the",
+      "countryCode": "BS",
+      "state": "",
+      "stationCode": "NAS"
+    },
+    {
+      "cityAndCode": "Bogota, Colombia (BOG)",
+      "country": "Colombia, Republic of",
+      "countryCode": "CO",
+      "state": "",
+      "stationCode": "BOG"
+    },
+    {
+      "cityAndCode": "San Jose (SJO)",
+      "country": "Costa Rica",
+      "countryCode": "CR",
+      "state": "",
+      "stationCode": "SJO"
+    },
+    {
+      "cityAndCode": "Puerto Plata (POP)",
+      "country": "Dominican Republic",
+      "countryCode": "DO",
+      "state": "",
+      "stationCode": "POP"
+    },
+    {
+      "cityAndCode": "Punta Cana (PUJ)",
+      "country": "Dominican Republic",
+      "countryCode": "DO",
+      "state": "",
+      "stationCode": "PUJ"
+    },
+    {
+      "cityAndCode": "Santiago (STI)",
+      "country": "Dominican Republic",
+      "countryCode": "DO",
+      "state": "",
+      "stationCode": "STI"
+    },
+    {
+      "cityAndCode": "Santo Domingo (SDQ)",
+      "country": "Dominican Republic",
+      "countryCode": "DO",
+      "state": "",
+      "stationCode": "SDQ"
+    },
+    {
+      "cityAndCode": "Guatemala City (GUA)",
+      "country": "Guatemala, Republic of",
+      "countryCode": "GT",
+      "state": "",
+      "stationCode": "GUA"
+    },
+    {
+      "cityAndCode": "San Pedro Sula (SAP)",
+      "country": "Honduras, Republic of",
+      "countryCode": "HN",
+      "state": "",
+      "stationCode": "SAP"
+    },
+    {
+      "cityAndCode": "Montego Bay (MBJ)",
+      "country": "Jamaica",
+      "countryCode": "JM",
+      "state": "",
+      "stationCode": "MBJ"
+    },
+    {
+      "cityAndCode": "Aguascalientes (AGU)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "AGU"
+    },
+    {
+      "cityAndCode": "Cabo San Lucas (SJD)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "SJD"
+    },
+    {
+      "cityAndCode": "Cancun (CUN)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "CUN"
+    },
+    {
+      "cityAndCode": "Chihuahua (CUU)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "CUU"
+    },
+    {
+      "cityAndCode": "Ciudad Juarez (CJS)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "CJS"
+    },
+    {
+      "cityAndCode": "Culiacan (CUL)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "CUL"
+    },
+    {
+      "cityAndCode": "Durango (DGO)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "DGO"
+    },
+    {
+      "cityAndCode": "Guadalajara (GDL)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "GDL"
+    },
+    {
+      "cityAndCode": "Hermosillo (HMO)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "HMO"
+    },
+    {
+      "cityAndCode": "Huatulco (HUX)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "HUX"
+    },
+    {
+      "cityAndCode": "Leon/Guanajuato (BJX)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "BJX"
+    },
+    {
+      "cityAndCode": "Mexicali (MXL)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "MXL"
+    },
+    {
+      "cityAndCode": "Mexico City (AICM) (MEX)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "MEX"
+    },
+    {
+      "cityAndCode": "Mexico City (AIFA) (NLU)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "NLU"
+    },
+    {
+      "cityAndCode": "Monterrey (MTY)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "MTY"
+    },
+    {
+      "cityAndCode": "Morelia (MLM)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "MLM"
+    },
+    {
+      "cityAndCode": "Oaxaca (OAX)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "OAX"
+    },
+    {
+      "cityAndCode": "Puebla (PBC)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "PBC"
+    },
+    {
+      "cityAndCode": "Puerto Vallarta (PVR)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "PVR"
+    },
+    {
+      "cityAndCode": "Queretaro (QRO)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "QRO"
+    },
+    {
+      "cityAndCode": "San Luis Potosi (SLP)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "SLP"
+    },
+    {
+      "cityAndCode": "Tijuana (TIJ)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "TIJ"
+    },
+    {
+      "cityAndCode": "Toluca (TLC)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "TLC"
+    },
+    {
+      "cityAndCode": "Tuxtla Gutierrez (TGZ)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "TGZ"
+    },
+    {
+      "cityAndCode": "Uruapan (UPN)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "UPN"
+    },
+    {
+      "cityAndCode": "Zacatecas (ZCL)",
+      "country": "Mexico, United Mexican States",
+      "countryCode": "MX",
+      "state": "",
+      "stationCode": "ZCL"
+    },
+    {
+      "cityAndCode": "Aguadilla (BQN)",
+      "country": "Puerto Rico",
+      "countryCode": "PR",
+      "state": "",
+      "stationCode": "BQN"
+    },
+    {
+      "cityAndCode": "Ponce (PSE)",
+      "country": "Puerto Rico",
+      "countryCode": "PR",
+      "state": "",
+      "stationCode": "PSE"
+    },
+    {
+      "cityAndCode": "San Juan (SJU)",
+      "country": "Puerto Rico",
+      "countryCode": "PR",
+      "state": "",
+      "stationCode": "SJU"
+    },
+    {
+      "cityAndCode": "San Salvador (SAL)",
+      "country": "El Salvador, Republic of",
+      "countryCode": "SV",
+      "state": "",
+      "stationCode": "SAL"
+    },
+    {
+      "cityAndCode": "St. Marteen (SXM)",
+      "country": "St. Marteen",
+      "countryCode": "SX",
+      "state": "",
+      "stationCode": "SXM"
+    },
+    {
+      "cityAndCode": "Providenciales (PLS)",
+      "country": "Turks and Caicos Islands",
+      "countryCode": "TC",
+      "state": "",
+      "stationCode": "PLS"
+    },
+    {
+      "cityAndCode": "Port of Spain (POS)",
+      "country": "Trinidad and Tobago, Republic of",
+      "countryCode": "TT",
+      "state": "",
+      "stationCode": "POS"
+    },
+    {
+      "cityAndCode": "St. Croix (STX)",
+      "country": "U.S. Virgin Islands",
+      "countryCode": "VI",
+      "state": "",
+      "stationCode": "STX"
+    },
+    {
+      "cityAndCode": "St. Thomas (STT)",
+      "country": "U.S. Virgin Islands",
+      "countryCode": "VI",
+      "state": "",
+      "stationCode": "STT"
+    }
+  ],
+  "timestamp": "2026-03-06T13:52:27.920789",
+  "total_airports": 145
+}
