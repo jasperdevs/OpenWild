@@ -1,44 +1,30 @@
 "use client";
 
-import { LoaderCircle, ArrowUpRight, Plane, AlertCircle } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, Plane } from "lucide-react";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { format, parseISO } from "date-fns";
+import Link from "next/link";
 
 import { SearchControls } from "@/components/search-controls";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { FrontierOrigin, FrontierRoute, FrontierSearchResponse } from "@/lib/frontier-types";
 
 const FrontierMap = dynamic(
-  () => import("@/components/frontier-map").then((module) => module.FrontierMap),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full w-full items-center justify-center bg-card">
-        <LoaderCircle className="size-5 animate-spin text-muted-foreground" />
-      </div>
-    ),
-  },
+  () => import("@/components/frontier-map").then((mod) => mod.FrontierMap),
+  { ssr: false, loading: () => <div className="h-full w-full" /> },
 );
 
 type LiveRoutesExplorerProps = {
   origins: FrontierOrigin[];
 };
 
-function priceClass(route: FrontierRoute) {
-  if (route.priceBand === "low") return "text-emerald-400";
-  if (route.priceBand === "high") return "text-red-400";
+function priceColor(route: FrontierRoute) {
+  if (route.priceBand === "low") return "text-[#46A758]";
+  if (route.priceBand === "high") return "text-[#E5484D]";
   return "text-foreground";
-}
-
-function priceBg(route: FrontierRoute) {
-  if (route.priceBand === "low") return "bg-emerald-500/10";
-  if (route.priceBand === "high") return "bg-red-500/10";
-  return "bg-muted";
 }
 
 export function LiveRoutesExplorer({ origins }: LiveRoutesExplorerProps) {
@@ -53,6 +39,7 @@ export function LiveRoutesExplorer({ origins }: LiveRoutesExplorerProps) {
   const [loading, setLoading] = useState(queryOrigin !== "" && queryDate !== "");
   const [error, setError] = useState<string | null>(null);
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(null);
+  const [panelOpen, setPanelOpen] = useState(true);
 
   useEffect(() => {
     setDraftOrigin(queryOrigin);
@@ -105,9 +92,8 @@ export function LiveRoutesExplorer({ origins }: LiveRoutesExplorerProps) {
       setSelectedRouteId(null);
       return;
     }
-
-    setSelectedRouteId((current) =>
-      current && data.routes.some((r) => r.id === current) ? current : data.routes[0].id,
+    setSelectedRouteId((cur) =>
+      cur && data.routes.some((r) => r.id === cur) ? cur : data.routes[0].id,
     );
   }, [data]);
 
@@ -124,50 +110,64 @@ export function LiveRoutesExplorer({ origins }: LiveRoutesExplorerProps) {
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
-  const lowCount = data?.routes.filter((r) => r.priceBand === "low").length ?? 0;
   const hasSearched = queryOrigin && queryDate;
 
   return (
-    <div className="grid min-h-[calc(100dvh-9rem)] gap-4 xl:grid-cols-[minmax(0,1fr)_420px]">
-      {/* Map */}
-      <Card className="overflow-hidden border-border/60">
-        <CardContent className="relative h-[calc(100dvh-9rem)] min-h-[500px] p-0">
-          <FrontierMap
-            routes={data?.routes ?? []}
-            selectedRouteId={selectedRouteId}
-            onSelectRoute={setSelectedRouteId}
-          />
+    <div className="relative flex flex-1 overflow-hidden">
+      {/* Fullscreen map */}
+      <div className="flex-1">
+        <FrontierMap
+          routes={data?.routes ?? []}
+          selectedRouteId={selectedRouteId}
+          onSelectRoute={setSelectedRouteId}
+        />
 
-          {loading && (
-            <div className="absolute left-4 top-4 flex items-center gap-2.5 rounded-lg border border-border bg-background/95 px-3.5 py-2.5 text-sm backdrop-blur-sm">
-              <LoaderCircle className="size-4 animate-spin text-muted-foreground" />
-              <span>Searching Frontier routes...</span>
-            </div>
-          )}
+        {loading && (
+          <div className="absolute left-3 top-3 z-20 rounded-md border border-border bg-card px-3 py-1.5 text-[13px]">
+            <span className="flex items-center gap-2">
+              <span className="inline-block size-3 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-foreground" />
+              Searching...
+            </span>
+          </div>
+        )}
 
-          {error && (
-            <div className="absolute left-4 top-4 flex items-center gap-2.5 rounded-lg border border-red-900/50 bg-background/95 px-3.5 py-2.5 text-sm text-red-400 backdrop-blur-sm">
-              <AlertCircle className="size-4" />
-              <span>{error}</span>
-            </div>
-          )}
+        {error && (
+          <div className="absolute left-3 top-3 z-20 rounded-md border border-[#E5484D]/30 bg-card px-3 py-1.5 text-[13px] text-[#E5484D]">
+            {error}
+          </div>
+        )}
 
-          {!loading && data && (
-            <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-lg border border-border bg-background/95 px-3.5 py-2 text-xs backdrop-blur-sm">
-              <span className="font-medium">{data.routes.length} routes</span>
-              {lowCount > 0 && (
-                <span className="text-emerald-400">{lowCount} under $35</span>
-              )}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+        {/* Toggle panel button when collapsed */}
+        {!panelOpen && (
+          <button
+            type="button"
+            onClick={() => setPanelOpen(true)}
+            className="absolute right-3 top-3 z-20 rounded-md border border-border bg-card px-3 py-1.5 text-[13px] transition-colors hover:bg-accent"
+          >
+            Open panel
+          </button>
+        )}
+      </div>
 
-      {/* Side Panel */}
-      <div className="min-w-0">
-        <Card className="flex h-[calc(100dvh-9rem)] min-h-[500px] flex-col overflow-hidden border-border/60">
+      {/* Right panel */}
+      {panelOpen && (
+        <div className="flex w-[360px] shrink-0 flex-col border-l border-border bg-background">
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-border px-3 py-2">
+            <Link href="/" className="text-sm font-semibold tracking-tight">
+              OpenWild
+            </Link>
+            <button
+              type="button"
+              onClick={() => setPanelOpen(false)}
+              className="rounded p-1 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <ChevronLeft className="size-4 rotate-180" />
+            </button>
+          </div>
+
           {/* Search */}
-          <CardContent className="border-b border-border/60 p-4">
+          <div className="border-b border-border p-3">
             <SearchControls
               origins={origins}
               originValue={draftOrigin}
@@ -176,120 +176,94 @@ export function LiveRoutesExplorer({ origins }: LiveRoutesExplorerProps) {
               onDateChange={setDraftDate}
               onSubmit={submitSearch}
               compact
-              searchLabel={hasSearched ? "Update search" : "Search routes"}
+              searchLabel={hasSearched ? "Update" : "Search"}
               loading={loading}
             />
-          </CardContent>
-
-          {/* Header */}
-          {hasSearched && (
-            <div className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-3">
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium">
-                  {originSummary?.airportLabel ?? "Airport"}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {data?.date ? format(parseISO(data.date), "EEEE, MMMM d") : "Loading..."}
-                </p>
-              </div>
-              <Badge variant="outline" className="shrink-0 tabular-nums">
-                {data?.routes.length ?? 0} routes
-              </Badge>
-            </div>
-          )}
-
-          {/* Route List */}
-          <div className="min-h-0 flex-1 overflow-y-auto">
-            <div className="space-y-1.5 p-3">
-              {data?.routes.map((route) => {
-                const selected = route.id === selectedRouteId;
-
-                return (
-                  <button
-                    key={route.id}
-                    type="button"
-                    className={cn(
-                      "w-full rounded-lg border p-3 text-left transition-all",
-                      selected
-                        ? "border-foreground/30 bg-accent"
-                        : "border-transparent bg-card/50 hover:bg-card",
-                    )}
-                    onClick={() => setSelectedRouteId(route.id)}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="truncate text-sm font-medium">
-                            {route.destinationCity}
-                          </span>
-                          <span className="shrink-0 text-xs text-muted-foreground">
-                            {route.destinationCode}
-                          </span>
-                        </div>
-                        <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                          {route.destinationAirport}
-                        </p>
-                      </div>
-                      <div className={cn("shrink-0 rounded-md px-2 py-0.5 text-sm font-semibold tabular-nums", priceBg(route), priceClass(route))}>
-                        {route.priceLabel}
-                      </div>
-                    </div>
-
-                    {selected && (
-                      <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/40 pt-3">
-                        <span className="text-xs text-muted-foreground">{route.departureLabel}</span>
-                        <Button asChild variant="outline" size="sm" className="h-7 text-xs">
-                          <a href={route.routeUrl} target="_blank" rel="noreferrer">
-                            Book on Frontier
-                            <ArrowUpRight className="ml-1 size-3" />
-                          </a>
-                        </Button>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-
-              {!loading && !error && hasSearched && (data?.routes.length ?? 0) === 0 && (
-                <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border px-4 py-12 text-center">
-                  <Plane className="size-8 text-muted-foreground/30" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">No routes found</p>
-                    <p className="mt-1 text-xs text-muted-foreground/70">
-                      Try a different date or origin airport
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {!hasSearched && (
-                <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border px-4 py-12 text-center">
-                  <Plane className="size-8 text-muted-foreground/30" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Search for routes</p>
-                    <p className="mt-1 text-xs text-muted-foreground/70">
-                      Select an airport and date above
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
 
-          {/* Footer CTA */}
-          {selectedRoute && (
-            <div className="border-t border-border/60 p-3">
-              <Button asChild className="w-full">
-                <a href={selectedRoute.routeUrl} target="_blank" rel="noreferrer">
-                  Open {selectedRoute.destinationCity} on Frontier
-                  <ArrowUpRight className="ml-1.5 size-4" />
-                </a>
-              </Button>
+          {/* Results header */}
+          {hasSearched && data && (
+            <div className="flex items-center justify-between border-b border-border px-3 py-2">
+              <span className="text-[13px] font-medium">
+                {originSummary?.code ?? ""} — {data.date ? format(parseISO(data.date), "MMM d") : ""}
+              </span>
+              <span className="font-mono text-[11px] text-muted-foreground">
+                {data.routes.length} routes
+              </span>
             </div>
           )}
-        </Card>
-      </div>
+
+          {/* Route list */}
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            {data?.routes.map((route) => {
+              const selected = route.id === selectedRouteId;
+
+              return (
+                <button
+                  key={route.id}
+                  type="button"
+                  className={cn(
+                    "w-full border-b border-border px-3 py-2.5 text-left transition-colors",
+                    selected ? "bg-accent" : "hover:bg-accent/50",
+                  )}
+                  onClick={() => setSelectedRouteId(route.id)}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <span className="text-[13px] font-medium">{route.destinationCity}</span>
+                    </div>
+                    <span
+                      className={cn(
+                        "shrink-0 font-mono text-[13px] font-semibold",
+                        priceColor(route),
+                      )}
+                    >
+                      {route.priceLabel}
+                    </span>
+                  </div>
+                  <div className="mt-0.5 flex items-center gap-2 text-[11px] text-muted-foreground">
+                    <span className="font-mono">{route.destinationCode}</span>
+                    <span>{route.flightType === "DOMESTIC" ? "Domestic" : route.flightType === "INTERNATIONAL" ? "Intl" : ""}</span>
+                  </div>
+
+                  {selected && (
+                    <div className="mt-2">
+                      <a
+                        href={route.routeUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-md bg-foreground px-2.5 py-1 text-[11px] font-medium text-background transition-colors hover:bg-foreground/90"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        View on Frontier
+                        <ArrowUpRight className="size-3" />
+                      </a>
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+
+            {!loading && !error && hasSearched && (data?.routes.length ?? 0) === 0 && (
+              <div className="px-3 py-10 text-center">
+                <p className="text-[13px] text-muted-foreground">No routes found</p>
+                <p className="mt-1 text-[11px] text-muted-foreground/60">
+                  Try a different date
+                </p>
+              </div>
+            )}
+
+            {!hasSearched && (
+              <div className="flex flex-col items-center gap-2 px-3 py-10 text-center">
+                <Plane className="size-5 text-muted-foreground/20" />
+                <p className="text-[13px] text-muted-foreground">
+                  Select airport and date
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-

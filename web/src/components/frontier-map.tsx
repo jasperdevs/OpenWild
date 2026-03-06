@@ -14,14 +14,14 @@ type FrontierMapProps = {
 
 function tone(route: FrontierRoute) {
   if (route.priceBand === "low") {
-    return { stroke: "#22c55e", label: "is-low" };
+    return { stroke: "#46A758", label: "is-low" };
   }
 
   if (route.priceBand === "high") {
-    return { stroke: "#f87171", label: "is-high" };
+    return { stroke: "#E5484D", label: "is-high" };
   }
 
-  return { stroke: "#e4e4e7", label: "is-mid" };
+  return { stroke: "#7A756F", label: "is-mid" };
 }
 
 function createPriceIcon(route: FrontierRoute, selected: boolean) {
@@ -114,10 +114,9 @@ export function FrontierMap({
   );
 
   return (
-    <MapContainer center={[20, 0]} zoom={2} scrollWheelZoom className="h-full w-full" zoomControl>
+    <MapContainer center={[38, -95]} zoom={4} scrollWheelZoom className="h-full w-full" zoomControl={false} attributionControl={false}>
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        url="https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
       />
 
       <SyncMapSize />

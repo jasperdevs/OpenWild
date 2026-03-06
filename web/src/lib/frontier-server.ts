@@ -12,30 +12,20 @@ import type {
 
 type SputnikFare = {
   emptyFare?: boolean;
+  datacoreId?: string;
   priceSpecification?: {
     totalPrice?: number;
     soldOut?: boolean;
   };
   outboundFlight?: {
     fareClass?: string;
+    fareClassInput?: string;
     departureAirportIataCode?: string;
     arrivalAirportIataCode?: string;
-    origin?: {
-      city?: { name?: string };
-    };
-    destination?: {
-      city?: { name?: string; image?: string };
-      airport?: { name?: string };
-    };
   };
   departureDate?: string;
   journeyType?: string;
   flightType?: string;
-};
-
-type RoutePageEntry = {
-  keys: Set<string>;
-  url: string;
 };
 
 const FRONTIER_HEADERS = {
@@ -61,10 +51,7 @@ const AIRPORT_POSITION_BY_IATA = new Map<
     )
     .map(([code, airport]) => [
       code,
-      {
-        latitude: airport.latitude,
-        longitude: airport.longitude,
-      },
+      { latitude: airport.latitude, longitude: airport.longitude },
     ]),
 );
 const AIRPORT_NAME_BY_IATA = new Map<string, string>(
@@ -84,39 +71,10 @@ function decodeHtml(value: string) {
     .trim();
 }
 
-function normalizeLookupKey(value: string) {
-  return decodeHtml(value)
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\([^)]*\)/g, " ")
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim()
-    .replace(/\s+/g, " ");
-}
-
-function buildLookupKeys(value: string) {
-  const decoded = decodeHtml(value).trim();
-  const firstSegment = decoded.split(",")[0]?.trim() || decoded;
-  const withoutCity = firstSegment.replace(/\bcity\b/gi, " ").trim();
-  const candidates = [
-    decoded,
-    firstSegment,
-    withoutCity,
-    withoutCity.replace(/^st\.?\s+/i, "saint "),
-    withoutCity.replace(/^saint\s+/i, "st "),
-  ];
-
-  return Array.from(
-    new Set(candidates.map((candidate) => normalizeLookupKey(candidate)).filter(Boolean)),
-  );
-}
-
 async function fetchText(url: string) {
   const response = await fetch(url, {
     headers: FRONTIER_HEADERS,
-    next: { revalidate: 1800 },
+    next: { revalidate: 900 },
   });
 
   if (!response.ok) {
@@ -127,14 +85,8 @@ async function fetchText(url: string) {
 }
 
 function priceBand(price: number) {
-  if (price <= 35) {
-    return "low";
-  }
-
-  if (price >= 90) {
-    return "high";
-  }
-
+  if (price <= 35) return "low";
+  if (price >= 90) return "high";
   return "mid";
 }
 
@@ -150,45 +102,6 @@ function originUrl(origin: Pick<FrontierOrigin, "pagePath">) {
   return `https://flights.flyfrontier.com${origin.pagePath}`;
 }
 
-function parseRoutePageEntries(origin: Pick<FrontierOrigin, "slug" | "pagePath">, html: string) {
-  const prefix = `${origin.slug}-to-`;
-  const matches = html.matchAll(
-    new RegExp(
-      `href="([^"]*${prefix}[a-z0-9\\-]+)"[^>]*aria-label="([^"]*)"[^>]*>([^<]+)</a>`,
-      "gi",
-    ),
-  );
-  const entries: RoutePageEntry[] = [];
-  const seen = new Set<string>();
-
-  for (const match of matches) {
-    const slug = decodeHtml(match[1]).replace(/^\/+/, "").replace(/^en\//, "");
-
-    if (!slug.startsWith(prefix) || seen.has(slug)) {
-      continue;
-    }
-
-    seen.add(slug);
-
-    const linkText = decodeHtml(match[3]);
-    const destinationText = linkText.split(/\s+-\s+/).at(-1) ?? linkText;
-    const ariaDestination = decodeHtml(match[2]).split(/\bto\b/i).at(-1) ?? "";
-    const slugDestination = slug.replace(prefix, "").replace(/-\d+$/, "").replace(/-/g, " ");
-    const keys = new Set([
-      ...buildLookupKeys(destinationText),
-      ...buildLookupKeys(ariaDestination),
-      ...buildLookupKeys(slugDestination),
-    ]);
-
-    entries.push({
-      keys,
-      url: `https://flights.flyfrontier.com/en/${slug}`,
-    });
-  }
-
-  return entries;
-}
-
 function parseOriginMeta(origin: Pick<FrontierOrigin, "slug">, html: string) {
   const match = html.match(
     /"originCity":\{"name":"([^"]+)","cityCode":"([A-Z]{3})"/,
@@ -198,10 +111,25 @@ function parseOriginMeta(origin: Pick<FrontierOrigin, "slug">, html: string) {
     throw new Error(`Failed to parse origin metadata for ${origin.slug}`);
   }
 
-  return {
-    label: decodeHtml(match[1]),
-    code: match[2],
-  };
+  return { label: decodeHtml(match[1]), code: match[2] };
+}
+
+function parseRoutePageUrls(origin: Pick<FrontierOrigin, "slug">, html: string) {
+  const prefix = `${origin.slug}-to-`;
+  const matches = html.matchAll(
+    new RegExp(`href="([^"]*${prefix}[a-z0-9\\-]+)"`, "gi"),
+  );
+  const urls: string[] = [];
+  const seen = new Set<string>();
+
+  for (const match of matches) {
+    const path = decodeHtml(match[1]).replace(/^\/+/, "").replace(/^en\//, "");
+    if (!path.startsWith(prefix) || seen.has(path)) continue;
+    seen.add(path);
+    urls.push(`https://flights.flyfrontier.com/en/${path}`);
+  }
+
+  return urls;
 }
 
 function parseRouteMeta(html: string) {
@@ -224,16 +152,10 @@ function parseRouteMeta(html: string) {
 
 function extractJsonArray(html: string, key: string) {
   const keyIndex = html.indexOf(`"${key}":[`);
-
-  if (keyIndex < 0) {
-    throw new Error(`Missing ${key} payload`);
-  }
+  if (keyIndex < 0) return null;
 
   const startIndex = html.indexOf("[", keyIndex);
-
-  if (startIndex < 0) {
-    throw new Error(`Missing ${key} array start`);
-  }
+  if (startIndex < 0) return null;
 
   let depth = 0;
   let inString = false;
@@ -241,45 +163,28 @@ function extractJsonArray(html: string, key: string) {
 
   for (let index = startIndex; index < html.length; index += 1) {
     const character = html[index];
-
-    if (escaped) {
-      escaped = false;
-      continue;
-    }
-
-    if (character === "\\") {
-      escaped = true;
-      continue;
-    }
-
-    if (character === '"') {
-      inString = !inString;
-      continue;
-    }
-
-    if (inString) {
-      continue;
-    }
-
-    if (character === "[") {
-      depth += 1;
-      continue;
-    }
-
+    if (escaped) { escaped = false; continue; }
+    if (character === "\\") { escaped = true; continue; }
+    if (character === '"') { inString = !inString; continue; }
+    if (inString) continue;
+    if (character === "[") { depth += 1; continue; }
     if (character === "]") {
       depth -= 1;
-
-      if (depth === 0) {
-        return html.slice(startIndex, index + 1);
-      }
+      if (depth === 0) return html.slice(startIndex, index + 1);
     }
   }
 
-  throw new Error(`Unterminated ${key} payload`);
+  return null;
 }
 
-function parseDailyHistogram(html: string) {
-  return JSON.parse(extractJsonArray(html, "dailyHistogram")) as SputnikFare[];
+function parseDailyHistogram(html: string): SputnikFare[] {
+  const raw = extractJsonArray(html, "dailyHistogram");
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as SputnikFare[];
+  } catch {
+    return [];
+  }
 }
 
 async function mapWithConcurrency<T, TResult>(
@@ -315,10 +220,7 @@ export async function getFrontierOrigins(): Promise<FrontierOrigin[]> {
         const pagePath = match[1];
         const slug = pagePath.replace("/en/", "");
 
-        if (seen.has(slug)) {
-          continue;
-        }
-
+        if (seen.has(slug)) continue;
         seen.add(slug);
         baseOrigins.push({
           slug,
@@ -329,23 +231,27 @@ export async function getFrontierOrigins(): Promise<FrontierOrigin[]> {
 
       const enrichedOrigins = await Promise.all(
         baseOrigins.map(async (origin) => {
-          const originHtml = await fetchText(originUrl(origin));
-          const meta = parseOriginMeta(origin, originHtml);
-          const airportName = AIRPORT_NAME_BY_IATA.get(meta.code) ?? meta.label;
+          try {
+            const originHtml = await fetchText(originUrl(origin));
+            const meta = parseOriginMeta(origin, originHtml);
+            const airportName = AIRPORT_NAME_BY_IATA.get(meta.code) ?? meta.label;
 
-          return {
-            ...origin,
-            label: meta.label,
-            code: meta.code,
-            airportName,
-            airportLabel: `${meta.code} · ${airportName}`,
-          } satisfies FrontierOrigin;
+            return {
+              ...origin,
+              label: meta.label,
+              code: meta.code,
+              airportName,
+              airportLabel: `${meta.code} - ${airportName}`,
+            } satisfies FrontierOrigin;
+          } catch {
+            return null;
+          }
         }),
       );
 
-      return enrichedOrigins.sort((left, right) =>
-        left.airportLabel.localeCompare(right.airportLabel),
-      );
+      return enrichedOrigins
+        .filter((o): o is FrontierOrigin => o !== null)
+        .sort((a, b) => a.airportLabel.localeCompare(b.airportLabel));
     })();
   }
 
@@ -356,82 +262,101 @@ export async function searchFrontierRoutes(
   origin: FrontierOrigin,
   departureDate: string,
 ): Promise<FrontierSearchResponse> {
-  if (BLACKOUT_SET.has(departureDate)) {
-    throw new Error("Selected date is a GoWild blackout date");
-  }
+  const isBlackout = BLACKOUT_SET.has(departureDate);
 
   const html = await fetchText(originUrl(origin));
   const meta = parseOriginMeta(origin, html);
-  const routePages = parseRoutePageEntries(origin, html);
+  const routeUrls = parseRoutePageUrls(origin, html);
+
   const routes = (
-    await mapWithConcurrency(routePages, 10, async (routePage) => {
-      const routeHtml = await fetchText(routePage.url);
-      const routeMeta = parseRouteMeta(routeHtml);
-      const matchingFare = parseDailyHistogram(routeHtml).find(
-        (fare) =>
-          fare.departureDate === departureDate &&
-          fare.journeyType === "ONE_WAY" &&
-          !fare.emptyFare &&
-          typeof fare.priceSpecification?.totalPrice === "number" &&
-          fare.priceSpecification.totalPrice > 0,
-      );
+    await mapWithConcurrency(routeUrls, 10, async (routeUrl) => {
+      try {
+        const routeHtml = await fetchText(routeUrl);
+        const routeMeta = parseRouteMeta(routeHtml);
+        const fares = parseDailyHistogram(routeHtml);
 
-      if (!matchingFare) {
+        // Find best matching fare: exact date ONE_WAY first
+        let matchingFare = fares.find(
+          (fare) =>
+            fare.departureDate === departureDate &&
+            fare.journeyType === "ONE_WAY" &&
+            !fare.emptyFare &&
+            typeof fare.priceSpecification?.totalPrice === "number" &&
+            fare.priceSpecification.totalPrice > 0,
+        );
+
+        // Fallback: closest ONE_WAY fare within 3 days
+        // The histogram contains "prices found by others" and may not
+        // have every date — use the nearest available price as an estimate.
+        if (!matchingFare) {
+          const targetMs = new Date(departureDate + "T00:00:00").getTime();
+          const candidates = fares
+            .filter(
+              (fare) =>
+                fare.journeyType === "ONE_WAY" &&
+                !fare.emptyFare &&
+                typeof fare.priceSpecification?.totalPrice === "number" &&
+                fare.priceSpecification.totalPrice > 0 &&
+                fare.departureDate,
+            )
+            .map((fare) => ({
+              fare,
+              gap: Math.abs(new Date(fare.departureDate + "T00:00:00").getTime() - targetMs),
+            }))
+            .sort((a, b) => a.gap - b.gap);
+
+          const threeDaysMs = 3 * 24 * 60 * 60 * 1000;
+          if (candidates.length > 0 && candidates[0].gap <= threeDaysMs) {
+            matchingFare = candidates[0].fare;
+          }
+        }
+
+        if (!matchingFare) return null;
+
+        const price = matchingFare.priceSpecification?.totalPrice;
+        const destinationCode =
+          matchingFare.outboundFlight?.arrivalAirportIataCode ?? routeMeta.destinationCode;
+        const originCode =
+          matchingFare.outboundFlight?.departureAirportIataCode ?? routeMeta.originCode;
+
+        if (price == null || !destinationCode || !originCode) return null;
+
+        return {
+          id: `${originCode}-${destinationCode}`,
+          originCity: routeMeta.originCity,
+          originCode,
+          originLatitude: AIRPORT_POSITION_BY_IATA.get(originCode)?.latitude ?? null,
+          originLongitude: AIRPORT_POSITION_BY_IATA.get(originCode)?.longitude ?? null,
+          destinationCity: routeMeta.destinationCity,
+          destinationCode,
+          destinationLatitude: AIRPORT_POSITION_BY_IATA.get(destinationCode)?.latitude ?? null,
+          destinationLongitude: AIRPORT_POSITION_BY_IATA.get(destinationCode)?.longitude ?? null,
+          destinationAirport:
+            AIRPORT_NAME_BY_IATA.get(destinationCode) ?? routeMeta.destinationCity,
+          departureDate: matchingFare.departureDate ?? departureDate,
+          departureLabel: format(parseISO(matchingFare.departureDate ?? departureDate), "MMM d"),
+          price,
+          priceLabel: formatPrice(price),
+          priceBand: priceBand(price),
+          soldOut: Boolean(matchingFare.priceSpecification?.soldOut),
+          flightType: matchingFare.flightType || "UNKNOWN",
+          image: null as string | null,
+          gowildBlackout: isBlackout,
+          routeUrl: routeUrl,
+        } satisfies FrontierRoute;
+      } catch {
         return null;
       }
-
-      const price = matchingFare.priceSpecification?.totalPrice;
-      const destinationCode =
-        matchingFare.outboundFlight?.arrivalAirportIataCode ?? routeMeta.destinationCode;
-      const originCode =
-        matchingFare.outboundFlight?.departureAirportIataCode ?? routeMeta.originCode;
-
-      if (price == null || !destinationCode || !originCode) {
-        return null;
-      }
-
-      const route: FrontierRoute = {
-        id: `${originCode}-${destinationCode}`,
-        originCity: routeMeta.originCity,
-        originCode,
-        originLatitude: AIRPORT_POSITION_BY_IATA.get(originCode)?.latitude ?? null,
-        originLongitude: AIRPORT_POSITION_BY_IATA.get(originCode)?.longitude ?? null,
-        destinationCity: routeMeta.destinationCity,
-        destinationCode,
-        destinationLatitude: AIRPORT_POSITION_BY_IATA.get(destinationCode)?.latitude ?? null,
-        destinationLongitude: AIRPORT_POSITION_BY_IATA.get(destinationCode)?.longitude ?? null,
-        destinationAirport:
-          AIRPORT_NAME_BY_IATA.get(destinationCode) ?? routeMeta.destinationCity,
-        departureDate,
-        departureLabel: format(parseISO(departureDate), "MMM d"),
-        price,
-        priceLabel: formatPrice(price),
-        priceBand: priceBand(price),
-        soldOut: Boolean(matchingFare.priceSpecification?.soldOut),
-        flightType: matchingFare.flightType || "UNKNOWN",
-        image: null,
-        gowildBlackout: false,
-        routeUrl: routePage.url,
-      };
-
-      return route;
     })
   )
     .filter((route): route is FrontierRoute => route !== null)
-    .sort((left, right) => {
-      if (left.price !== right.price) {
-        return left.price - right.price;
-      }
-
-      return left.destinationCity.localeCompare(right.destinationCity);
+    .sort((a, b) => {
+      if (a.price !== b.price) return a.price - b.price;
+      return a.destinationCity.localeCompare(b.destinationCity);
     });
 
   return {
-    origin: {
-      slug: origin.slug,
-      label: meta.label,
-      code: meta.code,
-    },
+    origin: { slug: origin.slug, label: meta.label, code: meta.code },
     date: departureDate,
     searchedAt: new Date().toISOString(),
     routes,

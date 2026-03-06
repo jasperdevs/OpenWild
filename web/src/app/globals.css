@@ -8,6 +8,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -43,73 +44,83 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/*
+ * OpenWild palette — warm neutrals inspired by opencode.ai
+ * Background:   #0A0908  (warm black)
+ * Surface:      #141210  (warm card)
+ * Border:       #282420  (warm edge)
+ * Muted text:   #7A756F  (warm gray)
+ * Foreground:   #EDEBE8  (warm white)
+ * Accent:       #C8C3BC  (warm highlight)
+ */
+
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.09 0 0);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.13 0 0);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.13 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.92 0 0);
-  --primary-foreground: oklch(0.09 0 0);
-  --secondary: oklch(0.18 0 0);
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.16 0 0);
-  --muted-foreground: oklch(0.55 0 0);
-  --accent: oklch(0.18 0 0);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.57 0.19 27);
-  --border: oklch(0.22 0 0);
-  --input: oklch(0.18 0 0);
-  --ring: oklch(0.55 0 0);
-  --chart-1: oklch(0.62 0 0);
-  --chart-2: oklch(0.52 0 0);
-  --chart-3: oklch(0.42 0 0);
-  --chart-4: oklch(0.32 0 0);
-  --chart-5: oklch(0.22 0 0);
-  --sidebar: oklch(0.12 0 0);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.92 0 0);
-  --sidebar-primary-foreground: oklch(0.09 0 0);
-  --sidebar-accent: oklch(0.18 0 0);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.22 0 0);
-  --sidebar-ring: oklch(0.55 0 0);
+  --radius: 0.5rem;
+  --background: #0A0908;
+  --foreground: #EDEBE8;
+  --card: #131110;
+  --card-foreground: #EDEBE8;
+  --popover: #131110;
+  --popover-foreground: #EDEBE8;
+  --primary: #EDEBE8;
+  --primary-foreground: #0A0908;
+  --secondary: #1C1A17;
+  --secondary-foreground: #EDEBE8;
+  --muted: #1C1A17;
+  --muted-foreground: #7A756F;
+  --accent: #1C1A17;
+  --accent-foreground: #EDEBE8;
+  --destructive: #E5484D;
+  --border: #282420;
+  --input: #1C1A17;
+  --ring: #7A756F;
+  --chart-1: #7A756F;
+  --chart-2: #5A5550;
+  --chart-3: #3A3530;
+  --chart-4: #282420;
+  --chart-5: #1C1A17;
+  --sidebar: #0E0D0B;
+  --sidebar-foreground: #EDEBE8;
+  --sidebar-primary: #EDEBE8;
+  --sidebar-primary-foreground: #0A0908;
+  --sidebar-accent: #1C1A17;
+  --sidebar-accent-foreground: #EDEBE8;
+  --sidebar-border: #282420;
+  --sidebar-ring: #7A756F;
 }
 
 .dark {
-  --background: oklch(0.09 0 0);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.13 0 0);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.13 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.92 0 0);
-  --primary-foreground: oklch(0.09 0 0);
-  --secondary: oklch(0.18 0 0);
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.16 0 0);
-  --muted-foreground: oklch(0.55 0 0);
-  --accent: oklch(0.18 0 0);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.57 0.19 27);
-  --border: oklch(0.22 0 0);
-  --input: oklch(0.18 0 0);
-  --ring: oklch(0.55 0 0);
-  --chart-1: oklch(0.62 0 0);
-  --chart-2: oklch(0.52 0 0);
-  --chart-3: oklch(0.42 0 0);
-  --chart-4: oklch(0.32 0 0);
-  --chart-5: oklch(0.22 0 0);
-  --sidebar: oklch(0.12 0 0);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.92 0 0);
-  --sidebar-primary-foreground: oklch(0.09 0 0);
-  --sidebar-accent: oklch(0.18 0 0);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.22 0 0);
-  --sidebar-ring: oklch(0.55 0 0);
+  --background: #0A0908;
+  --foreground: #EDEBE8;
+  --card: #131110;
+  --card-foreground: #EDEBE8;
+  --popover: #131110;
+  --popover-foreground: #EDEBE8;
+  --primary: #EDEBE8;
+  --primary-foreground: #0A0908;
+  --secondary: #1C1A17;
+  --secondary-foreground: #EDEBE8;
+  --muted: #1C1A17;
+  --muted-foreground: #7A756F;
+  --accent: #1C1A17;
+  --accent-foreground: #EDEBE8;
+  --destructive: #E5484D;
+  --border: #282420;
+  --input: #1C1A17;
+  --ring: #7A756F;
+  --chart-1: #7A756F;
+  --chart-2: #5A5550;
+  --chart-3: #3A3530;
+  --chart-4: #282420;
+  --chart-5: #1C1A17;
+  --sidebar: #0E0D0B;
+  --sidebar-foreground: #EDEBE8;
+  --sidebar-primary: #EDEBE8;
+  --sidebar-primary-foreground: #0A0908;
+  --sidebar-accent: #1C1A17;
+  --sidebar-accent-foreground: #EDEBE8;
+  --sidebar-border: #282420;
+  --sidebar-ring: #7A756F;
 }
 
 @layer base {
@@ -130,15 +141,15 @@
   }
 
   ::selection {
-    background: oklch(0.3 0 0);
-    color: oklch(0.95 0 0);
+    background: #3A3530;
+    color: #EDEBE8;
   }
 }
 
-/* Leaflet overrides */
+/* Leaflet */
 .leaflet-container {
   z-index: 0;
-  background: oklch(0.1 0 0);
+  background: #0E0D0B;
   font: inherit;
   height: 100%;
   width: 100%;
@@ -175,77 +186,72 @@
 }
 
 .leaflet-control-zoom {
-  border: 1px solid oklch(0.22 0 0) !important;
-  border-radius: 8px !important;
+  border: 1px solid #282420 !important;
+  border-radius: 6px !important;
   overflow: hidden;
   box-shadow: none !important;
 }
 
 .leaflet-control-zoom a {
-  background: oklch(0.13 0 0) !important;
-  color: oklch(0.95 0 0) !important;
-  border-bottom: 1px solid oklch(0.22 0 0) !important;
+  background: #131110 !important;
+  color: #EDEBE8 !important;
+  border-bottom: 1px solid #282420 !important;
 }
 
 .leaflet-control-zoom a:hover {
-  background: oklch(0.18 0 0) !important;
+  background: #1C1A17 !important;
 }
 
 .leaflet-control-attribution {
-  background: rgb(20 20 20 / 0.92) !important;
-  color: oklch(0.5 0 0) !important;
-  font-size: 10px !important;
-}
-
-.leaflet-control-attribution a {
-  color: oklch(0.65 0 0) !important;
+  display: none !important;
 }
 
 .leaflet-tooltip.frontier-map-tooltip {
-  background: rgb(20 20 20 / 0.96);
-  border: 1px solid oklch(0.22 0 0);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
-  color: oklch(0.95 0 0);
+  background: rgba(19, 17, 16, 0.97);
+  border: 1px solid #282420;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  color: #EDEBE8;
   font-size: 13px;
   padding: 8px 12px;
 }
 
 .leaflet-tooltip.frontier-map-tooltip::before {
-  border-top-color: rgb(20 20 20 / 0.96);
+  border-top-color: rgba(19, 17, 16, 0.97);
 }
 
 .map-price-chip {
   display: inline-flex;
-  min-width: 52px;
+  min-width: 48px;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  border: 1px solid oklch(0.22 0 0);
-  background: rgb(9 9 11 / 0.94);
-  padding: 4px 10px;
+  border: 1px solid #282420;
+  background: rgba(10, 9, 8, 0.92);
+  padding: 3px 8px;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  color: oklch(0.95 0 0);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  letter-spacing: -0.02em;
+  color: #EDEBE8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
 }
 
 .map-price-chip.is-selected {
-  border-color: oklch(0.7 0 0);
-  background: oklch(0.18 0 0);
+  border-color: #7A756F;
+  background: #1C1A17;
 }
 
 .map-price-chip.is-low {
-  color: #22c55e;
+  color: #46A758;
 }
 
 .map-price-chip.is-high {
-  color: #f87171;
+  color: #E5484D;
 }
 
-/* Scrollbar hide utility */
+/* Utilities */
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
